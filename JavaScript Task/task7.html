@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Animation</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .train-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-top: 50px;
+        }
+        .train {
+            position: absolute;
+            left: 0;
+            width: 250px;
+            height: auto;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="train-container">
+        <img src="https://pixabay.com/gifs/train-locomotive-railway-movement-3360/" alt="train" class="train" id="train">
+    </div>
+
+    <h2 style="color: navy;">Click the following buttons to handle animation</h2>
+
+    <div class="buttons">
+        <button onclick="startTrain()">Start</button>
+        <button onclick="stopTrain()">Stop</button>
+    </div>
+
+    <script>
+        let train = document.getElementById("train");
+        let position = 0;
+        let trainMoving;
+
+        function startTrain() {
+            if (!trainMoving) {
+                trainMoving = setInterval(() => {
+                    position += 5;
+                    train.style.left = position + "px";
+
+                    if (position > window.innerWidth) {
+                        position = -250; 
+                    }
+                }, 50);
+            }
+        }
+
+        function stopTrain() {
+            clearInterval(trainMoving);
+            trainMoving = null;
+        }
+    </script>
+
+</body>
+</html>

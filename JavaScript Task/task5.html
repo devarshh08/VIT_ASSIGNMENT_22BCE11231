@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .input-error {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="myForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span class="error" id="nameError"></span><br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <span class="error" id="emailError"></span><br><br>
+
+        <label for="website">Website:</label>
+        <input type="text" id="website" name="website">
+        <span class="error" id="websiteError"></span><br><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message"></textarea>
+        <span class="error" id="messageError"></span><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const website = document.getElementById("website");
+            const message = document.getElementById("message");
+
+            const nameError = document.getElementById("nameError");
+            const emailError = document.getElementById("emailError");
+            const websiteError = document.getElementById("websiteError");
+            const messageError = document.getElementById("messageError");
+
+            nameError.textContent = "";
+            emailError.textContent = "";
+            websiteError.textContent = "";
+            messageError.textContent = "";
+
+            name.classList.remove("input-error");
+            email.classList.remove("input-error");
+            website.classList.remove("input-error");
+            message.classList.remove("input-error");
+
+            if (name.value.trim() === "") {
+                nameError.textContent = "This field is required";
+                name.classList.add("input-error");
+                isValid = false;
+            }
+
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email.value)) {
+                emailError.textContent = "A valid email address is required";
+                email.classList.add("input-error");
+                isValid = false;
+            }
+
+            const urlPattern = /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,6})(\/\S*)?$/;
+            if (!urlPattern.test(website.value)) {
+                websiteError.textContent = "A valid url is required";
+                website.classList.add("input-error");
+                isValid = false;
+            }
+
+            if (message.value.trim() === "") {
+                messageError.textContent = "This field is required";
+                message.classList.add("input-error");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>
